@@ -3,49 +3,1698 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AWS S3 Static Website</title>
+
+    <title>Neeraj | AI/ML Engineer</title>
+
+    <meta name="description"
+          content="Portfolio of Neeraj - AI/ML Engineer, Python Developer and FastAPI Backend Developer.">
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        /* =========================================================
+           GLOBAL
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
         body {
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(37,99,235,.18), transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(124,58,237,.16), transparent 25%),
+                #050816;
+            color: #e2e8f0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: #3b82f6;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1150px, 90%);
+            margin: auto;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title span {
+            color: #60a5fa;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-top: 5px;
+            color: white;
+        }
+
+        .section-title p {
+            max-width: 650px;
+            margin: 12px auto 0;
+            color: #94a3b8;
+        }
+
+
+        /* =========================================================
+           BACKGROUND ORBS
+        ========================================================= */
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .25;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb-one {
+            width: 350px;
+            height: 350px;
+            background: #2563eb;
+            top: 10%;
+            left: -150px;
+        }
+
+        .orb-two {
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            bottom: -100px;
+            right: -150px;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(5, 8, 22, .72);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .navbar {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -7px;
+            background: #60a5fa;
+            transition: .3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            border: 0;
+            background: transparent;
+            color: white;
+            font-size: 27px;
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        #home {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a, #1d4ed8);
+            padding-top: 110px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            align-items: center;
+            gap: 70px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 15px;
+            border: 1px solid rgba(96,165,250,.3);
+            background: rgba(37,99,235,.1);
+            border-radius: 50px;
+            color: #93c5fd;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 12px #22c55e;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: 1;
             color: white;
+            letter-spacing: -3px;
+        }
+
+        .hero h1 span {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+        .hero h2 {
+            margin: 25px 0 15px;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        #typing {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #94a3b8;
+            font-size: 17px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: .3s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            box-shadow: 0 10px 30px rgba(37,99,235,.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37,99,235,.4);
+        }
+
+        .btn-outline {
+            border-color: rgba(255,255,255,.16);
+            background: rgba(255,255,255,.04);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,.1);
+            transform: translateY(-3px);
+        }
+
+
+        /* HERO TERMINAL */
+
+        .terminal {
+            background: rgba(15,23,42,.78);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,.45);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: .4s;
+        }
+
+        .terminal:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-7px);
+        }
+
+        .terminal-top {
+            padding: 15px;
+            background: rgba(255,255,255,.05);
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .red { background: #ef4444; }
+        .yellow { background: #eab308; }
+        .green { background: #22c55e; }
+
+        .terminal-body {
+            padding: 28px;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            min-height: 320px;
+        }
+
+        .terminal-body p {
+            margin: 9px 0;
+        }
+
+        .prompt {
+            color: #22c55e;
+        }
+
+        .command {
+            color: #93c5fd;
+        }
+
+        .value {
+            color: #c4b5fd;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-card {
+            min-height: 360px;
+            border-radius: 24px;
+            background:
+                linear-gradient(145deg, rgba(37,99,235,.25), rgba(124,58,237,.15));
+            border: 1px solid rgba(255,255,255,.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: "";
+            width: 220px;
+            height: 220px;
+            position: absolute;
+            background: #2563eb;
+            filter: blur(90px);
+            opacity: .3;
+        }
+
+        .initials {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            font-weight: 900;
+            color: white;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(37,99,235,.4);
+        }
+
+        .about-content h3 {
+            font-size: 30px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .info-box {
+            padding: 15px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 12px;
+        }
+
+        .info-box small {
+            color: #64748b;
+        }
+
+        .info-box strong {
+            display: block;
+            color: #e2e8f0;
+            margin-top: 3px;
+        }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .skill-card {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(15,23,42,.55);
+            border-radius: 18px;
+            transition: .35s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(96,165,250,.4);
+            background: rgba(30,41,59,.8);
+        }
+
+        .skill-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .skill-card h3 {
+            color: white;
+            margin-bottom: 13px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 10px;
+            border-radius: 7px;
+            background: rgba(59,130,246,.1);
+            color: #93c5fd;
+            font-size: 12px;
+            border: 1px solid rgba(59,130,246,.15);
+        }
+
+
+        /* =========================================================
+           EXPERIENCE / TIMELINE
+        ========================================================= */
+
+        .timeline {
+            max-width: 850px;
+            margin: auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(#2563eb, #7c3aed);
+        }
+
+        .timeline-item {
+            padding-left: 60px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-dot-main {
+            position: absolute;
+            left: 8px;
+            top: 18px;
+            width: 21px;
+            height: 21px;
+            border: 4px solid #050816;
+            border-radius: 50%;
+            background: #60a5fa;
+            box-shadow: 0 0 15px rgba(96,165,250,.7);
+        }
+
+        .timeline-card {
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(15,23,42,.6);
+        }
+
+        .timeline-card h3 {
+            color: white;
+            font-size: 21px;
+        }
+
+        .timeline-card h4 {
+            color: #60a5fa;
+            margin: 4px 0 10px;
+        }
+
+        .timeline-card p {
+            color: #94a3b8;
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .project {
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(15,23,42,.6);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: .35s;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            border-color: rgba(96,165,250,.4);
+        }
+
+        .project-top {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+            background:
+                linear-gradient(135deg, rgba(37,99,235,.25), rgba(124,58,237,.2));
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-content h3 {
+            color: white;
+            font-size: 21px;
+        }
+
+        .project-content p {
+            color: #94a3b8;
+            margin: 10px 0 18px;
+        }
+
+
+        /* =========================================================
+           AWS ARCHITECTURE
+        ========================================================= */
+
+        .architecture {
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(15,23,42,.6);
+            border: 1px solid rgba(255,255,255,.08);
             text-align: center;
         }
-        .container {
-            width: min(90%, 700px);
-            padding: 50px 30px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+
+        .architecture-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
         }
-        h1 { font-size: 3rem; margin-bottom: 15px; }
-        p { font-size: 1.15rem; line-height: 1.7; color: #dbeafe; }
-        .badge {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 10px 18px;
-            border-radius: 999px;
-            background: #f59e0b;
-            color: #111827;
-            font-weight: bold;
+
+        .architecture-box {
+            min-width: 120px;
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(37,99,235,.1);
+            border: 1px solid rgba(96,165,250,.2);
+            font-weight: 700;
         }
+
+        .arrow {
+            color: #60a5fa;
+            font-size: 25px;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact-box {
+            max-width: 850px;
+            margin: auto;
+            text-align: center;
+            padding: 60px 30px;
+            border-radius: 25px;
+            background:
+                linear-gradient(135deg, rgba(37,99,235,.15), rgba(124,58,237,.15));
+            border: 1px solid rgba(255,255,255,.1);
+        }
+
+        .contact-box h2 {
+            color: white;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .contact-box p {
+            max-width: 600px;
+            margin: 15px auto 30px;
+            color: #94a3b8;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,.08);
+            padding: 30px 0;
+            color: #64748b;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           SCROLL REVEAL
+        ========================================================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: .8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .hero,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .terminal {
+                transform: none;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 76px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: #080d1d;
+                padding: 25px;
+                gap: 20px;
+                transform: translateY(-150%);
+                transition: .35s;
+                border-bottom: 1px solid rgba(255,255,255,.1);
+            }
+
+            .nav-links.open {
+                transform: translateY(0);
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+        }
+
     </style>
 </head>
+
+
 <body>
-    <main class="container">
-        <h1>🚀 Website is Live!</h1>
+
+<div class="orb orb-one"></div>
+<div class="orb orb-two"></div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav>
+
+    <div class="container navbar">
+
+        <a href="#home" class="logo">
+            Neeraj<span>.</span>
+        </a>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#cloud">Cloud</a></li>
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section id="home">
+
+    <div class="container hero">
+
+        <div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Building AI & Cloud Applications
+            </div>
+
+            <h1>
+                Hi, I'm
+                <span>Neeraj.</span>
+            </h1>
+
+            <h2>
+                I build
+                <span id="typing"></span>
+            </h2>
+
+            <p>
+                AI/ML engineering student focused on building practical
+                machine learning systems, FastAPI backends, APIs and
+                cloud-deployed applications.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#projects" class="btn btn-primary">
+                    Explore Projects
+                </a>
+
+                <a href="#contact" class="btn btn-outline">
+                    Contact Me
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="terminal">
+
+            <div class="terminal-top">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+            </div>
+
+            <div class="terminal-body">
+
+                <p>
+                    <span class="prompt">neeraj@aws:~$</span>
+                    <span class="command"> whoami</span>
+                </p>
+
+                <p class="value">
+                    AI / ML Engineer
+                </p>
+
+                <p>
+                    <span class="prompt">neeraj@aws:~$</span>
+                    <span class="command"> skills --core</span>
+                </p>
+
+                <p class="value">
+                    Python · Machine Learning · FastAPI
+                </p>
+
+                <p>
+                    <span class="prompt">neeraj@aws:~$</span>
+                    <span class="command"> cloud --provider</span>
+                </p>
+
+                <p class="value">
+                    AWS
+                </p>
+
+                <p>
+                    <span class="prompt">neeraj@aws:~$</span>
+                    <span class="command"> deploy portfolio</span>
+                </p>
+
+                <p class="value">
+                    ✓ Deployment ready
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+            <span>About</span>
+            <h2>Who I Am</h2>
+        </div>
+
+        <div class="about-grid">
+
+            <div class="about-card reveal">
+
+                <div class="initials">
+                    NN
+                </div>
+
+            </div>
+
+
+            <div class="about-content reveal">
+
+                <h3>
+                    Building my path toward ML Engineering.
+                </h3>
+
+                <p>
+                    I'm pursuing a B.Tech focused on Artificial Intelligence
+                    and Machine Learning at NIMS University.
+                </p>
+
+                <p>
+                    My interests are centered around machine learning,
+                    Python backend engineering, APIs, databases, Docker,
+                    cloud infrastructure and deploying ML applications.
+                </p>
+
+                <p>
+                    I enjoy turning ML models into applications that people
+                    can actually interact with instead of keeping models
+                    inside notebooks.
+                </p>
+
+                <div class="quick-info">
+
+                    <div class="info-box">
+                        <small>Education</small>
+                        <strong>B.Tech AI & ML</strong>
+                    </div>
+
+                    <div class="info-box">
+                        <small>Career Goal</small>
+                        <strong>ML Engineer</strong>
+                    </div>
+
+                    <div class="info-box">
+                        <small>Backend</small>
+                        <strong>FastAPI</strong>
+                    </div>
+
+                    <div class="info-box">
+                        <small>Cloud</small>
+                        <strong>AWS</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SKILLS
+========================================================= -->
+
+<section id="skills">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span>Technology</span>
+
+            <h2>Technical Skills</h2>
+
+            <p>
+                Technologies I use while building machine learning,
+                backend and cloud applications.
+            </p>
+
+        </div>
+
+
+        <div class="skills-grid">
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">🐍</div>
+
+                <h3>Programming</h3>
+
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">HTML</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">🧠</div>
+
+                <h3>Machine Learning</h3>
+
+                <div class="tags">
+                    <span class="tag">Scikit-learn</span>
+                    <span class="tag">Pandas</span>
+                    <span class="tag">Model Training</span>
+                    <span class="tag">Data Cleaning</span>
+                    <span class="tag">ML Pipelines</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">⚡</div>
+
+                <h3>Backend</h3>
+
+                <div class="tags">
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Pydantic</span>
+                    <span class="tag">SQLAlchemy</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">JWT</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">🗄️</div>
+
+                <h3>Database</h3>
+
+                <div class="tags">
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">SQLite</span>
+                    <span class="tag">Alembic</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">☁️</div>
+
+                <h3>AWS & Cloud</h3>
+
+                <div class="tags">
+                    <span class="tag">IAM</span>
+                    <span class="tag">EC2</span>
+                    <span class="tag">S3</span>
+                    <span class="tag">RDS</span>
+                    <span class="tag">CodePipeline</span>
+                    <span class="tag">CodeBuild</span>
+                </div>
+
+            </div>
+
+
+            <div class="skill-card reveal">
+
+                <div class="skill-icon">🐳</div>
+
+                <h3>DevOps</h3>
+
+                <div class="tags">
+                    <span class="tag">Docker</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">GitHub</span>
+                    <span class="tag">CI/CD</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section id="experience">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span>Journey</span>
+
+            <h2>Experience & Education</h2>
+
+        </div>
+
+
+        <div class="timeline">
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot-main"></div>
+
+                <div class="timeline-card">
+
+                    <h3>Machine Learning Engineering Intern</h3>
+
+                    <h4>Kaleidonex Technologies</h4>
+
+                    <p>
+                        Worked on machine learning engineering concepts and
+                        gained practical exposure to building ML-focused
+                        applications and engineering workflows.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot-main"></div>
+
+                <div class="timeline-card">
+
+                    <h3>B.Tech — Artificial Intelligence & Machine Learning</h3>
+
+                    <h4>NIMS University</h4>
+
+                    <p>
+                        Studying AI, machine learning, algorithms, data,
+                        backend technologies and related computer science
+                        fundamentals.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-dot-main"></div>
+
+                <div class="timeline-card">
+
+                    <h3>Hackathons & Technical Activities</h3>
+
+                    <h4>Projects • Ideathons • Volunteering</h4>
+
+                    <p>
+                        Participated in technical events, ideathons and
+                        hackathon activities while developing practical
+                        software and problem-solving experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section id="projects">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span>Portfolio</span>
+
+            <h2>Featured Projects</h2>
+
+            <p>
+                Applications built across AI, ML and backend development.
+            </p>
+
+        </div>
+
+
+        <div class="projects-grid">
+
+
+            <article class="project reveal">
+
+                <div class="project-top">🤖</div>
+
+                <div class="project-content">
+
+                    <h3>Jarvis AI Assistant</h3>
+
+                    <p>
+                        Voice-controlled AI assistant supporting speech
+                        recognition, conversational responses, web actions
+                        and media interactions.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Speech Recognition</span>
+                        <span class="tag">Gemini AI</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="project reveal">
+
+                <div class="project-top">🏥</div>
+
+                <div class="project-content">
+
+                    <h3>Insurance Premium Prediction</h3>
+
+                    <p>
+                        ML-powered application combining prediction,
+                        backend APIs and healthcare-related management
+                        functionality.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">Streamlit</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="project reveal">
+
+                <div class="project-top">🛒</div>
+
+                <div class="project-content">
+
+                    <h3>Grocery Store API</h3>
+
+                    <p>
+                        Backend grocery management system built using
+                        FastAPI with structured API endpoints and database
+                        integration.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">SQLAlchemy</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="project reveal">
+
+                <div class="project-top">✈️</div>
+
+                <div class="project-content">
+
+                    <h3>Flight Prediction System</h3>
+
+                    <p>
+                        Machine learning project focused on applying
+                        preprocessing, model training and prediction
+                        workflows to flight-related data.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Pandas</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="project reveal">
+
+                <div class="project-top">❤️</div>
+
+                <div class="project-content">
+
+                    <h3>Heart Disease Prediction</h3>
+
+                    <p>
+                        Machine learning application designed around
+                        classification and structured prediction workflows.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">ML</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="project reveal">
+
+                <div class="project-top">☁️</div>
+
+                <div class="project-content">
+
+                    <h3>AWS CI/CD Static Website</h3>
+
+                    <p>
+                        Automated static website deployment architecture
+                        using GitHub, AWS CodePipeline, CodeBuild and S3.
+                    </p>
+
+                    <div class="tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">S3</span>
+                        <span class="tag">CodePipeline</span>
+                        <span class="tag">CI/CD</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CLOUD
+========================================================= -->
+
+<section id="cloud">
+
+    <div class="container">
+
+        <div class="section-title reveal">
+
+            <span>Cloud Engineering</span>
+
+            <h2>AWS Deployment Architecture</h2>
+
+            <p>
+                This portfolio itself can be deployed through the CI/CD
+                pipeline I'm learning and building.
+            </p>
+
+        </div>
+
+
+        <div class="architecture reveal">
+
+            <h3>Continuous Deployment Pipeline</h3>
+
+            <div class="architecture-flow">
+
+                <div class="architecture-box">
+                    💻 Developer
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="architecture-box">
+                    GitHub
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="architecture-box">
+                    AWS CodePipeline
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="architecture-box">
+                    AWS CodeBuild
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="architecture-box">
+                    Amazon S3
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="architecture-box">
+                    🌐 Website
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section id="contact">
+
+    <div class="container">
+
+        <div class="contact-box reveal">
+
+            <span style="color:#60a5fa; letter-spacing:3px;">
+                LET'S CONNECT
+            </span>
+
+            <h2>
+                Let's build something intelligent.
+            </h2>
+
+            <p>
+                I'm continuously learning and building across machine
+                learning, backend engineering, cloud and MLOps.
+            </p>
+
+            <div class="hero-buttons"
+                 style="justify-content:center;">
+
+                <!-- Replace # with your actual URLs -->
+
+                <a href="#"
+                   class="btn btn-primary">
+                    GitHub
+                </a>
+
+                <a href="#"
+                   class="btn btn-outline">
+                    LinkedIn
+                </a>
+
+                <a href="mailto:your-email@example.com"
+                   class="btn btn-outline">
+                    Email Me
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="container">
+
         <p>
-            This static website is hosted using
-            <strong>Amazon S3 Static Website Hosting</strong>.
+            © <span id="year"></span> Neeraj.
+            Built with HTML, CSS, JavaScript & AWS.
         </p>
-        <span class="badge">AWS S3</span>
-    </main>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* =========================================================
+       MOBILE NAVIGATION
+    ========================================================= */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navLinks")
+            .classList
+            .toggle("open");
+    }
+
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            document
+                .getElementById("navLinks")
+                .classList
+                .remove("open");
+
+        });
+
+    });
+
+
+    /* =========================================================
+       TYPING EFFECT
+    ========================================================= */
+
+    const words = [
+        "Machine Learning Systems.",
+        "FastAPI Backends.",
+        "REST APIs.",
+        "Cloud Applications.",
+        "AI Projects."
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const typingElement =
+        document.getElementById("typing");
+
+
+    function typeEffect() {
+
+        const currentWord = words[wordIndex];
+
+        if (!deleting) {
+
+            typingElement.textContent =
+                currentWord.substring(0, charIndex++);
+
+            if (charIndex > currentWord.length) {
+
+                deleting = true;
+
+                setTimeout(typeEffect, 1300);
+
+                return;
+            }
+
+        } else {
+
+            typingElement.textContent =
+                currentWord.substring(0, charIndex--);
+
+            if (charIndex < 0) {
+
+                deleting = false;
+
+                wordIndex =
+                    (wordIndex + 1) % words.length;
+
+                charIndex = 0;
+            }
+        }
+
+        setTimeout(
+            typeEffect,
+            deleting ? 45 : 75
+        );
+    }
+
+    typeEffect();
+
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+
+    const observer =
+        new IntersectionObserver(entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target
+                        .classList
+                        .add("visible");
+
+                }
+
+            });
+
+        }, {
+            threshold: 0.12
+        });
+
+
+    document
+        .querySelectorAll(".reveal")
+        .forEach(element => {
+
+            observer.observe(element);
+
+        });
+
+
+    /* =========================================================
+       ACTIVE NAVIGATION
+    ========================================================= */
+
+    const sections =
+        document.querySelectorAll("section");
+
+    const navLinks =
+        document.querySelectorAll(".nav-links a");
+
+
+    window.addEventListener("scroll", () => {
+
+        let current = "";
+
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop - 150;
+
+            if (window.scrollY >= sectionTop) {
+
+                current =
+                    section.getAttribute("id");
+
+            }
+
+        });
+
+
+        navLinks.forEach(link => {
+
+            link.classList.remove("active");
+
+            if (
+                link.getAttribute("href") ===
+                "#" + current
+            ) {
+
+                link.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+
+    /* =========================================================
+       YEAR
+    ========================================================= */
+
+    document.getElementById("year")
+        .textContent =
+        new Date().getFullYear();
+
+</script>
+
 </body>
 </html>
